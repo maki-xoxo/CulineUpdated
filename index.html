@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Culine Market Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-mark">CL</span>
+      <span class="brand-name">Culine</span>
+    </div>
+
+    <nav class="nav">
+      <a class="nav-link active" href="#OverviewSection">Overview</a>
+      <a class="nav-link" href="#recipesSection" id="navRecipes">Recipes</a>
+      <a class="nav-link" href="#">Coming soon... <span class="nav-count">4</span></a>
+    </nav>
+
+    <section class="sidebar-categories" aria-labelledby="categoryHeading">
+      <h2 id="categoryHeading">Category</h2>
+      <nav class="sidebar-category-list" aria-label="Shop by category">
+        <a class="sidebar-category-link" href="#marketHeading">Produce</a>
+        <a class="sidebar-category-link" href="#marketHeading">Dairy & eggs</a>
+        <a class="sidebar-category-link" href="#marketHeading">Bakery</a>
+        <a class="sidebar-category-link" href="#marketHeading">Meat & fish</a>
+        <a class="sidebar-category-link" href="#marketHeading">Pantry</a>
+      </nav>
+    </section>
+    <div class="sidebar-foot">
+      <p class="sidebar-note">Next delivery</p>
+      <p class="sidebar-note-strong">Thursday, 810am</p>
+
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <header class="topbar">
+      <div>
+        <p class="eyebrow-plain" id="currentDate"></p>
+        <h1><span id="greeting">Good morning</span>, <span id="userName">Alex</span></h1>
+      </div>
+      <div class="topbar-actions">
+        <button class="scan-trigger" type="button" id="scanTrigger" hidden>Scan barcode</button>
+      <div class="search">
+        <input type="text" placeholder="Search the market">
+      </div>
+        <button class="logout-btn" type="button" id="logoutButton">Log out</button>
+      </div>
+    </header>
+
+    <section class="stats">
+      <div class="stat-card stat-green" id="budgetCard">
+        <p class="stat-label">Budget remaining</p>
+        <p class="stat-value" id="budgetRemaining">$0.00</p>
+        <p class="stat-sub" id="budgetSub">of 2014 this week</p>
+        <div class="stat-bar"><div class="stat-bar-fill" id="budgetBar" style="width: 0%"></div></div>
+      </div>
+      <button class="stat-card cart-stat" type="button" id="cartTrigger" aria-haspopup="dialog" aria-controls="cartDialog">
+        <span class="stat-label">Items in cart</span>
+        <span class="stat-value" id="cartItemCount">0</span>
+        <span class="stat-sub" id="cartSubtotal"> subtotal | View cart</span>
+      </button>
+      <div class="stat-card">
+        <p class="stat-label">Orders this month</p>
+        <p class="stat-value">6</p>
+        <p class="stat-sub">2 arriving this week</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-label">Favorite vendor</p>
+        <p class="stat-value stat-value-small">Hollow Creek Farm</p>
+        <p class="stat-sub">9 orders this year</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 id="marketHeading">Fresh today</h2>
+        <a class="see-all" href="#" id="seeFullMarket">See full market</a>
+      </div>
+
+      <p class="inventory-sync-status" id="inventorySyncStatus" aria-live="polite"></p>
+      <div class="produce-grid">
+
+        <article class="produce-card" data-product-id="heirloom-tomatoes" data-price="4.20" data-unit="lb" data-stock="50" data-availability="available">
+          <div class="produce-swatch swatch-tomato"></div>
+          <div class="produce-body">
+            <h3>Heirloom tomatoes</h3>
+            <p class="produce-vendor">Hollow Creek Farm</p>
+            <div class="produce-row">
+              <span class="produce-price">$4.20 | &#8369;267.81 / lb</span>
+              <button class="add-btn">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="produce-card" data-product-id="baby-spinach" data-price="3.10" data-unit="bag" data-stock="30" data-availability="available">
+          <div class="produce-swatch swatch-greens"></div>
+          <div class="produce-body">
+            <h3>Baby spinach</h3>
+            <p class="produce-vendor">Riverside Growers</p>
+            <div class="produce-row">
+              <span class="produce-price">$3.10 | &#8369;197.67 / bag</span>
+              <button class="add-btn">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="produce-card" data-product-id="sourdough-loaf" data-price="6.50" data-unit="loaf" data-stock="20" data-availability="available">
+          <div class="produce-swatch swatch-bread"></div>
+          <div class="produce-body">
+            <h3>Sourdough loaf</h3>
+            <p class="produce-vendor">Millhouse Bakery</p>
+            <div class="produce-row">
+              <span class="produce-price">$6.50 | &#8369;414.47 / loaf</span>
+              <button class="add-btn">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="produce-card" data-product-id="free-range-eggs" data-price="5.90" data-unit="dozen" data-stock="25" data-availability="available">
+          <div class="produce-swatch swatch-eggs"></div>
+          <div class="produce-body">
+            <h3>Free-range eggs</h3>
+            <p class="produce-vendor">Blue Barn Poultry</p>
+            <div class="produce-row">
+              <span class="produce-price">$5.90 | &#8369;376.21 / dozen</span>
+              <button class="add-btn">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="produce-card" data-product-id="wildflower-honey" data-price="8.00" data-unit="jar" data-stock="15" data-availability="available">
+          <div class="produce-swatch swatch-honey"></div>
+          <div class="produce-body">
+            <h3>Wildflower honey</h3>
+            <p class="produce-vendor">Cedar Row Apiary</p>
+            <div class="produce-row">
+              <span class="produce-price">$8.00 | &#8369;510.12 / jar</span>
+              <button class="add-btn">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="produce-card" data-product-id="delicata-squash" data-price="2.75" data-unit="each" data-stock="40" data-availability="available">
+          <div class="produce-swatch swatch-squash"></div>
+          <div class="produce-body">
+            <h3>Delicata squash</h3>
+            <p class="produce-vendor">Hollow Creek Farm</p>
+            <div class="produce-row">
+              <span class="produce-price">$2.75 | &#8369;175.35 / each</span>
+              <button class="add-btn">Add</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="section" id="recipesSection">
+      <div class="section-head">
+        <h2>Recipes</h2>
+        <a class="see-all" href="#" id="seeAllRecipes">See all recipes</a>
+      </div>
+      <div class="recipes-grid" id="recipesGrid"></div>
+    </section>
+
+  <dialog class="cart-dialog" id="recipeDetailDialog" aria-labelledby="recipeDetailTitle">
+    <div class="cart-dialog-head">
+      <div><p class="eyebrow-plain">Recipe Details</p><h2 id="recipeDetailTitle">Recipe</h2></div>
+      <button class="cart-close-btn" type="button" id="recipeDetailClose" aria-label="Close recipe details">x</button>
+    </div>
+    <div class="recipe-detail" id="recipeDetailContent"></div>
+    <div class="recipe-actions">
+      <button type="button" class="admin-secondary" id="recipeCloseBtn">Close</button>
+      <button type="button" class="admin-primary" id="recipeAddAllBtn">Add All Ingredients to Cart</button>
+    </div>
+  </dialog>
+
+  <dialog class="cart-dialog scan-dialog" id="scanDialog" aria-labelledby="scanDialogTitle">
+    <div class="cart-dialog-head">
+      <div><p class="eyebrow-plain">Culine market helper</p><h2 id="scanDialogTitle">Scan a product</h2></div>
+      <button class="cart-close-btn" type="button" data-close-scan aria-label="Close barcode scanner"></button>
+    </div>
+    <p class="scan-status" id="scanStatus" aria-live="polite">Use your camera or enter a barcode.</p>
+    <video id="barcodeVideo" class="barcode-video" muted playsinline></video>
+    <div class="scan-manual-entry">
+      <label for="barcodeEntry">Barcode number</label>
+      <div><input id="barcodeEntry" inputmode="numeric" autocomplete="off" placeholder="Enter barcode"><button type="button" id="barcodeLookup">Find item</button></div>
+    </div>
+    <section id="scanProductResult" class="scan-product-result" hidden aria-live="polite"></section>
+    <button class="scan-stop-btn" type="button" data-close-scan>Close scanner</button>
+  </dialog>
+
+  <dialog class="cart-dialog" id="cartDialog" aria-labelledby="cartDialogTitle">
+    <div class="cart-dialog-head">
+      <div><p class="eyebrow-plain">Your selected produce</p><h2 id="cartDialogTitle">Shopping cart</h2></div>
+      <button class="cart-close-btn" type="button" id="cartClose" aria-label="Close shopping cart">x</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-dialog-total"><span>Subtotal</span><strong id="cartDialogSubtotal">$0.00</strong></div>
+    <p class="cart-note">Checkout will be available later.</p>
+  </dialog>
+
+  <!-- Budget Setup Dialog -->
+  <dialog class="cart-dialog" id="budgetSetupDialog" aria-labelledby="budgetSetupTitle">
+    <div class="cart-dialog-head">
+      <div><p class="eyebrow-plain">Welcome to Culine</p><h2 id="budgetSetupTitle">Set up your budget</h2></div>
+    </div>
+    <div class="setup-step" id="setupStep1">
+      <h3>Choose your currency</h3>
+      <div class="currency-options">
+        <button type="button" class="currency-btn" data-currency="USD" data-symbol="$">
+          <span class="currency-symbol">$</span>
+          <span class="currency-name">US Dollar (USD)</span>
+        </button>
+        <button type="button" class="currency-btn" data-currency="PHP" data-symbol="P">
+          <span class="currency-symbol">P</span>
+          <span class="currency-name">Philippine Peso (PHP)</span>
+        </button>
+      </div>
+    </div>
+    <div class="setup-step" id="setupStep2" hidden>
+      <h3>Set your weekly budget</h3>
+      <div class="field">
+        <span class="field-label">Weekly budget</span>
+        <span class="field-label">(For Peso only)This converts your budget to the selected currency "$ - P"</span>
+        <div class="budget-input-wrapper">
+          <span class="budget-symbol" id="budgetSymbol">$</span>
+          <input type="number" id="budgetAmount" placeholder="0.00" min="0" step="0.01" required>
+        </div>
+      </div>
+      <p class="field-error" id="budgetError"></p>
+    </div>
+    <div class="setup-actions">
+      <button type="button" class="admin-secondary-btn" id="setupBack" hidden>Back</button>
+      <button type="button" class="admin-primary-btn" id="setupNext">Next</button>
+    </div>
+  </dialog>
+
+  </main>
+
+</div>
+
+<script type="module">
+  import { supabase, supabaseConfigured } from './script/supabase-client.js';
+  import { USD_TO_PHP_RATE, getCurrency, formatCurrency } from './script/cart.js';
+  import { recipes, recipeIngredientMap, calculateRecipeCost, formatPrice, renderRecipes, showRecipeDetail } from "./script/recipes_temp.js";
+
+  const unsplashAccessKey = "I6E7saHiJiJ5grW9SsG3F81UqEAAaadwm-GT18OveN0";
+  let unsplashPhotos = [];
+
+  function applyProducePhotos() {
+    const cards = document.querySelectorAll(".produce-card");
+    cards.forEach((card, index) => {
+      const photo = unsplashPhotos[index];
+      if (!photo) return;
+
+      const visual = card.querySelector(".produce-swatch");
+      if (!visual) return;
+
+      let image = visual.querySelector(".produce-image");
+      if (!image) {
+        image = document.createElement("img");
+        image.className = "produce-image";
+        image.loading = "lazy";
+        visual.replaceChildren(image);
+      }
+      image.src = photo.urls.small;
+      image.alt = card.querySelector("h3").textContent;
+
+      let credit = card.querySelector(".photo-credit");
+      if (!credit) {
+        credit = document.createElement("p");
+        credit.className = "photo-credit";
+        card.insertBefore(credit, card.querySelector(".produce-body"));
+      }
+      const photographer = document.createElement("a");
+      photographer.href = photo.user.links.html;
+      photographer.target = "_blank";
+      photographer.rel = "noopener noreferrer";
+      photographer.textContent = "Photo by " + photo.user.name;
+      const source = document.createElement("a");
+      source.href = "https://unsplash.com/?utm_source=culine&utm_medium=referral";
+      source.target = "_blank";
+      source.rel = "noopener noreferrer";
+      source.textContent = " on Unsplash";
+      credit.replaceChildren(photographer, source);
+    });
+  }
+
+  window.applyProducePhotos = applyProducePhotos; // used by customer-live-inventory.js after it re-renders cards
+
+  async function loadProducePhotos() {
+    try {
+      try {
+        const cached = JSON.parse(localStorage.getItem("culineUnsplashPhotos"));
+        if (cached && Date.now() - cached.savedAt < 4 * 60 * 60 * 1000 && Array.isArray(cached.photos)) {
+          unsplashPhotos = cached.photos;
+          applyProducePhotos();
+          return;
+        }
+      } catch (cacheError) {}
+      const response = await fetch(
+        "https://api.unsplash.com/search/photos?query=fresh+seasonal+produce+vegetables+market&per_page=30&orientation=landscape",
+        { headers: { Authorization: "Client-ID " + unsplashAccessKey } }
+      );
+      if (!response.ok) throw new Error("Unsplash request failed: " + response.status);
+      const data = await response.json();
+      unsplashPhotos = (data.results || []).map(photo => ({ urls: { small: photo.urls.small }, user: { name: photo.user.name, links: { html: photo.user.links.html } } }));
+      try { localStorage.setItem("culineUnsplashPhotos", JSON.stringify({ savedAt: Date.now(), photos: unsplashPhotos })); } catch (cacheError) {}
+      applyProducePhotos();
+    } catch (error) {
+      console.warn("Produce photos could not be loaded from Unsplash.", error);
+    }
+  }
+
+
+  const marketLink = document.getElementById("seeFullMarket");
+  const marketHeading = document.getElementById("marketHeading");
+  const produceGrid = document.querySelector(".produce-grid");
+  const featuredCards = Array.from(produceGrid.children).map(card => card.cloneNode(true));
+  const seasonalProduce = [
+    { id: "heirloom-tomatoes", name: "Heirloom tomatoes", vendor: "Hollow Creek Farm", price: 4.20, unit: "lb", stock: 50, availability: "available", color: "#E27A54" },
+    { id: "baby-spinach", name: "Baby spinach", vendor: "Riverside Growers", price: 3.10, unit: "bag", stock: 30, availability: "available", color: "#7FA06A" },
+    { id: "sourdough-loaf", name: "Sourdough loaf", vendor: "Millhouse Bakery", price: 6.50, unit: "loaf", stock: 20, availability: "available", color: "#D8B27C" },
+    { id: "free-range-eggs", name: "Free-range eggs", vendor: "Blue Barn Poultry", price: 5.90, unit: "dozen", stock: 25, availability: "available", color: "#EAD9A8" },
+    { id: "wildflower-honey", name: "Wildflower honey", vendor: "Cedar Row Apiary", price: 8.00, unit: "jar", stock: 15, availability: "available", color: "#E3A93B" },
+    { id: "delicata-squash", name: "Delicata squash", vendor: "Hollow Creek Farm", price: 2.75, unit: "each", stock: 40, availability: "available", color: "#C97A3E" },
+    { id: "rainier-cherries", name: "Rainier cherries", vendor: "Sunfield Acres", price: 7.80, unit: "lb", stock: 18, availability: "available", color: "#D14A4A" },
+    { id: "avocado-hass", name: "Hass avocado", vendor: "Meadow Lane Farm", price: 2.40, unit: "each", stock: 60, availability: "available", color: "#5D8A4B" },
+    { id: "grass-fed-beef", name: "Grass-fed ground beef", vendor: "Green Pastures Ranch", price: 9.50, unit: "lb", stock: 12, availability: "available", color: "#B8473E" },
+    { id: "oat-milk", name: "Oat milk", vendor: "Pure Pour Dairy", price: 4.80, unit: "qt", stock: 22, availability: "available", color: "#F5F0E6" },
+    { id: "whole-wheat-bread", name: "Whole wheat bread", vendor: "Millhouse Bakery", price: 5.20, unit: "loaf", stock: 15, availability: "available", color: "#D4A87A" },
+    { id: "goat-cheese", name: "Fresh goat cheese", vendor: "Blue Barn Poultry", price: 6.75, unit: "pack", stock: 20, availability: "available", color: "#FDF8F0" },
+    { id: "poblano-peppers", name: "Poblano peppers", vendor: "Sunfield Acres", price: 3.20, unit: "lb", stock: 35, availability: "available", color: "#588453" },
+    { id: "butternut-squash", name: "Butternut squash", vendor: "Meadow Lane Farm", price: 2.80, unit: "lb", stock: 28, availability: "available", color: "#D28B45" },
+    { id: "fresh-basil", name: "Fresh basil", vendor: "Riverside Growers", price: 2.50, unit: "bunch", stock: 40, availability: "available", color: "#5B8B50" },
+    { id: "cilantro", name: "Cilantro", vendor: "Hollow Creek Farm", price: 1.75, unit: "bunch", stock: 50, availability: "available", color: "#6C9B5B" }
+  ];
+
+  function showSeasonalProduce() {
+    produceGrid.replaceChildren();
+    seasonalProduce.forEach(product => {
+      const card = document.createElement("article");
+      card.className = "produce-card";
+      card.dataset.productId = product.id;
+      card.dataset.price = product.price;
+      card.dataset.unit = product.unit;
+      card.dataset.stock = product.stock;
+      card.dataset.availability = product.availability;
+      const swatch = document.createElement("div");
+      swatch.className = "produce-swatch";
+      swatch.style.backgroundColor = product.color;
+      const body = document.createElement("div");
+      body.className = "produce-body";
+      const title = document.createElement("h3");
+      title.textContent = product.name;
+      const farm = document.createElement("p");
+      farm.className = "produce-vendor";
+      farm.textContent = product.vendor;
+      const row = document.createElement("div");
+      row.className = "produce-row";
+      const priceLabel = document.createElement("span");
+      priceLabel.className = "produce-price";
+      const phpPrice = product.price * USD_TO_PHP_RATE;
+      priceLabel.textContent = "$" + product.price.toFixed(2) + " | P" + phpPrice.toFixed(2) + " / " + product.unit;
+      const addButton = document.createElement("button");
+      addButton.className = "add-btn";
+      addButton.type = "button";
+      addButton.textContent = "Add";
+      row.append(priceLabel, addButton);
+      body.append(title, farm, row);
+      card.append(swatch, body);
+      produceGrid.appendChild(card);
+    });
+    applyProducePhotos();
+    marketHeading.textContent = "Full market 24 seasonal picks";
+    marketLink.textContent = "Back to featured";
+    marketLink.setAttribute("aria-expanded", "true");
+  }
+
+  function showFeaturedProduce() {
+    produceGrid.replaceChildren(...featuredCards.map(card => card.cloneNode(true)));
+    applyProducePhotos();
+    marketHeading.textContent = "Fresh today";
+    marketLink.textContent = "See full market";
+    marketLink.setAttribute("aria-expanded", "false");
+  }
+
+  marketLink.addEventListener("click", event => {
+    event.preventDefault();
+    if (marketLink.getAttribute("aria-expanded") === "true") {
+      showFeaturedProduce();
+    } else {
+      showSeasonalProduce();
+    }
+  });
+
+
+// --- Budget Setup ---
+  const CURRENCY_KEY = "culine_currency";
+  const BUDGET_KEY = "culine_weekly_budget";
+  const SETUP_DONE_KEY = "culine_setup_done";
+
+  // USD_TO_PHP_RATE, getCurrency and formatCurrency are imported from cart.js
+
+  const currencySymbols = {
+    USD: "$",
+    PHP: "P"
+  };
+
+  const currencyNames = {
+    USD: "US Dollar (USD)",
+    PHP: "Philippine Peso (PHP)"
+  };
+
+  function getBudget() {
+    return parseFloat(localStorage.getItem(BUDGET_KEY) || "0");
+  }
+
+  function isSetupDone() {
+    return localStorage.getItem(SETUP_DONE_KEY) === "true";
+  }
+
+  function updateBudgetDisplay() {
+    const budget = getBudget();
+    const currency = getCurrency();
+    const symbol = currencySymbols[currency] || "$";
+    
+    const budgetRemainingEl = document.getElementById("budgetRemaining");
+    const budgetSubEl = document.getElementById("budgetSub");
+    const budgetBarEl = document.getElementById("budgetBar");
+    const budgetCard = document.getElementById("budgetCard");
+    const cartSubtotalEl = document.getElementById("cartSubtotal");
+    const cartDialogSubtotalEl = document.getElementById("cartDialogSubtotal");
+
+    if (budget > 0 && isSetupDone()) {
+      // Calculate remaining (budget - cart subtotal)
+      const cartSubtotal = getCartSubtotal();
+      // Convert cart subtotal to selected currency for comparison
+      const cartSubtotalInCurrency = currency === "PHP" ? cartSubtotal * USD_TO_PHP_RATE : cartSubtotal;
+      const remaining = Math.max(0, budget - cartSubtotalInCurrency);
+      const percentage = budget > 0 ? Math.min(100, (cartSubtotalInCurrency / budget) * 100) : 0;
+
+      budgetRemainingEl.textContent = formatCurrency(remaining, false);
+      budgetSubEl.textContent = "of " + formatCurrency(budget, false) + " this week";
+      budgetBarEl.style.width = percentage + "%";
+      
+      // Update cart subtotal display
+      if (cartSubtotalEl) {
+        cartSubtotalEl.textContent = "$" + cartSubtotal.toFixed(2) + " subtotal | View cart";
+      }
+      if (cartDialogSubtotalEl) {
+        cartDialogSubtotalEl.textContent = "$" + cartSubtotal.toFixed(2);
+      }
+    } else {
+      budgetRemainingEl.textContent = "";
+      budgetSubEl.textContent = "Set up your budget";
+      budgetBarEl.style.width = "0%";
+      if (cartSubtotalEl) {
+        cartSubtotalEl.textContent = "subtotal View cart";
+      }
+      if (cartDialogSubtotalEl) {
+        cartDialogSubtotalEl.textContent = "";
+      }
+    }
+  }
+
+  function getCartSubtotal() {
+    // Get cart subtotal from cart.js
+    const cart = JSON.parse(localStorage.getItem("culineShoppingCart") || "[]");
+    return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  }
+
+  function showBudgetSetup() {
+    const dialog = document.getElementById("budgetSetupDialog");
+    const step1 = document.getElementById("setupStep1");
+    const step2 = document.getElementById("setupStep2");
+    const backBtn = document.getElementById("setupBack");
+    const nextBtn = document.getElementById("setupNext");
+    const budgetError = document.getElementById("budgetError");
+    const budgetAmount = document.getElementById("budgetAmount");
+    const budgetSymbol = document.getElementById("budgetSymbol");
+
+    // Reset to step 1
+    step1.hidden = false;
+    step2.hidden = true;
+    backBtn.hidden = true;
+    nextBtn.textContent = "Next";
+    budgetError.textContent = "";
+    budgetAmount.value = "";
+
+    // Currency button handlers
+    document.querySelectorAll(".currency-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".currency-btn").forEach(b => b.classList.remove("selected"));
+        btn.classList.add("selected");
+        localStorage.setItem(CURRENCY_KEY, btn.dataset.currency);
+        budgetSymbol.textContent = btn.dataset.symbol;
+      });
+    });
+    nextBtn.onclick = () => {
+      const selectedCurrency = document.querySelector(".currency-btn.selected");
+      if (!selectedCurrency) {
+        budgetError.textContent = "Please select a currency";
+        return;
+      }
+      step1.hidden = true;
+      step2.hidden = false;
+      backBtn.hidden = false;
+      nextBtn.textContent = "Save";
+      budgetError.textContent = "";
+    };
+
+    backBtn.onclick = () => {
+      step1.hidden = false;
+      step2.hidden = true;
+      backBtn.hidden = true;
+      nextBtn.textContent = "Next";
+      budgetError.textContent = "";
+    };
+
+    // Final save handler
+    let saveHandler = async () => {
+      const amount = parseFloat(budgetAmount.value);
+      if (isNaN(amount) || amount <= 0) {
+        budgetError.textContent = "Please enter a valid budget amount";
+        return;
+      }
+
+      localStorage.setItem(BUDGET_KEY, amount.toString());
+      localStorage.setItem(SETUP_DONE_KEY, "true");
+      budgetError.textContent = "";
+      
+      updateBudgetDisplay();
+      dialog.close();
+    };
+
+    // Handle next button click (changes based on step)
+    nextBtn.onclick = () => {
+      if (step2.hidden) {
+        // Step 1 -> Step 2
+        const selectedCurrency = document.querySelector(".currency-btn.selected");
+        if (!selectedCurrency) {
+          budgetError.textContent = "Please select a currency";
+          return;
+        }
+        step1.hidden = true;
+        step2.hidden = false;
+        backBtn.hidden = false;
+        nextBtn.textContent = "Save";
+        budgetError.textContent = "";
+      } else {
+        // Step 2 -> Save
+        saveHandler();
+      }
+    };
+
+    dialog.showModal();
+  }
+
+    // Update dynamic date and greeting
+  function updateDateAndGreeting() {
+    const dateEl = document.getElementById('currentDate');
+    const greetingEl = document.getElementById('greeting');
+    if (!dateEl || !greetingEl) return;
+
+    const now = new Date();
+    const options = { weekday: 'long', month: 'long', day: 'numeric' };
+    dateEl.textContent = now.toLocaleDateString('en-US', options);
+
+    const hour = now.getHours();
+    let greeting = 'Good Morning';
+    if (hour >= 12 && hour < 17) {
+      greeting = 'Good Afternoon';
+    } else if (hour >= 17) {
+      greeting = 'Good Evening';
+    }
+    greetingEl.textContent = greeting;
+  };
+
+// --- Supabase Auth check ---
+  async function checkAuth() {
+    if (!supabaseConfigured) {
+      // Fallback to localStorage for demo if Supabase not configured
+      const savedName = localStorage.getItem("userName");
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      if (savedName && isLoggedIn) {
+        loadProducePhotos();
+        updateDateAndGreeting();
+        document.getElementById("userName").textContent = savedName;
+        // Check budget setup
+        if (!isSetupDone()) {
+          showBudgetSetup();
+        } else {
+          updateBudgetDisplay();
+        }
+        return true;
+      }
+      window.location.href = "login.html";
+      return false;
+    }
+
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      window.location.href = "login.html";
+      return false;
+    }
+
+    // User is logged in
+    loadProducePhotos();
+    updateDateAndGreeting();
+    const userName = session.user.user_metadata?.username || session.user.email?.split("@")[0] || "User";
+    document.getElementById("userName").textContent = userName;
+
+    // Check budget setup
+    if (!isSetupDone()) {
+      showBudgetSetup();
+    } else {
+      updateBudgetDisplay();
+    }
+
+    // Listen for auth changes
+    supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_OUT" || !session) {
+        window.location.href = "login.html";
+      }
+    });
+
+    return true;
+  }
+
+  checkAuth().then(authed => { if (authed) renderRecipes(); });
+
+  document.getElementById("logoutButton").addEventListener("click", async () => {
+    if (supabaseConfigured) {
+      await supabase.auth.signOut();
+    } else {
+      localStorage.removeItem("isLoggedIn");
+    }
+    window.location.href = "login.html";
+  });
+
+  // Make budget card clickable to reopen budget setup
+  const budgetCard = document.getElementById("budgetCard");
+  if (budgetCard) {
+    budgetCard.style.cursor = "pointer";
+    budgetCard.addEventListener("click", () => {
+      showBudgetSetup();
+    });
+  }
+
+  // Listen for cart updates to refresh budget display
+  window.addEventListener("storage", (e) => {
+    if (e.key === "culineShoppingCart") {
+      updateBudgetDisplay();
+    }
+  });
+
+  // Also listen for cart updates from same tab
+  const originalSetItem = localStorage.setItem;
+  localStorage.setItem = function(key, value) {
+    originalSetItem.apply(this, arguments);
+    if (key === "culineShoppingCart") {
+      updateBudgetDisplay();
+    }
+  };
+</script>
+<script type="module" src="script/cart.js"></script>
+<script type="module" src="script/customer-live-inventory.js"></script>
+<script type="module" src="script/barcode-scanner.js"></script>
+</body>
+</html>
