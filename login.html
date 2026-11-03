@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Culine \u2014 Sign in</title>
+<title>Culine Sign in</title>
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -26,7 +27,7 @@
 
     <div class="fb-left">
       <div class="fb-logo">
-        <span class="brand-mark">CL</span>
+        <img src="assets/logo.svg" alt="Culine" class="brand-icon" width="48" height="48">
         <span class="fb-brand-name">Culine</span>
       </div>
       <p class="fb-tagline">Fresh groceries from local farms and vendors — order in minutes, delivered to your door.</p>
@@ -35,10 +36,16 @@
     <div class="fb-right">
       <div class="login-card">
 
+        <div class="login-logo">
+          <span class="brand-mark">CL</span>
+          <span class="login-brand">Culine</span>
+        </div>
+        <p class="login-tagline">Sign in to your account</p>
+
         <form class="login-form" id="loginForm">
           <label class="field">
-            <span class="field-label">Email or username</span>
-            <input type="text" id="loginIdentifier" placeholder="you@example.com or username" required>
+            <span class="field-label">Email</span>
+            <input type="email" id="loginIdentifier" placeholder="you@example.com" required autocomplete="email">
           </label>
           <label class="field">
             <span class="field-label">Password</span>
@@ -103,6 +110,7 @@
     </p>
   </dialog>
 
+<script src="script/config.js"></script>
 <script type="module" src="script/login.js"></script>
 </body>
 </html>

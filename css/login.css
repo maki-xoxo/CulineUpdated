@@ -84,7 +84,7 @@
   }
 }
 
-/* ---------- Two-column layout ---------- */
+/* ---------- Centered login card layout ---------- */
 
 .fb-wrap {
   position: relative;
@@ -93,53 +93,52 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4rem;
   padding: 2rem;
-  max-width: 1040px;
+  max-width: 420px;
   margin: 0 auto;
 }
 
 .fb-left {
-  flex: 1;
-  max-width: 460px;
-}
-
-.fb-logo {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1.25rem;
-}
-
-.fb-brand-name {
-  font-family: var(--font-display);
-  font-size: 2.6rem;
-  font-weight: 600;
-  color: var(--green-deep);
-  letter-spacing: 0.01em;
-}
-
-.fb-tagline {
-  font-size: 1.3rem;
-  line-height: 1.5;
-  color: var(--ink);
-  margin: 0;
+  display: none;
 }
 
 .fb-right {
-  flex: 0 0 auto;
+  width: 100%;
 }
 
 /* ---------- Card ---------- */
 
 .login-card {
-  width: 360px;
-  background: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(6px);
+  width: 100%;
+  max-width: 380px;
+  background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 14px;
-  box-shadow: 0 12px 28px rgba(47, 82, 51, 0.08);
-  padding: 2rem 1.75rem 1.75rem;
+  box-shadow: 0 12px 28px rgba(47, 82, 51, 0.12);
+  padding: 2.5rem 2rem 2rem;
+  text-align: center;
+}
+
+.login-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.login-brand {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--green-deep);
+  letter-spacing: 0.01em;
+}
+
+.login-tagline {
+  margin: 0 0 1.5rem;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
 }
 
 .login-form {
@@ -343,17 +342,14 @@
 
 /* ---------- Responsive ---------- */
 
-@media (max-width: 820px) {
+@media (max-width: 520px) {
   .fb-wrap {
-    flex-direction: column;
-    gap: 2.5rem;
-    text-align: center;
-  }
-  .fb-left {
+    padding: 1.5rem 1rem;
     max-width: 100%;
   }
-  .fb-logo {
-    justify-content: center;
+  .login-card {
+    padding: 1.5rem 1.25rem 1.25rem;
+    border-radius: 12px;
   }
 }
 .admin-login-link {
@@ -383,12 +379,4 @@
     top: 0.75rem;
     right: 0.75rem;
   }
-}
-
-@media (max-width: 520px) {
-  .fb-wrap { width: 100%; gap: 1.25rem; padding: 4.5rem 1rem 1.25rem; }
-  .fb-brand-name { font-size: 2.1rem; }
-  .fb-tagline { font-size: 1rem; }
-  .fb-right { width: 100%; }
-  .login-card { width: min(360px, 100%); padding: 1.4rem 1.1rem 1.2rem; }
 }

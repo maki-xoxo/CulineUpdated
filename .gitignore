@@ -9,5 +9,6 @@ local.properties
 .env
 .env.*
 !.env.example
+config.local.js
 .DS_Store
 Thumbs.db

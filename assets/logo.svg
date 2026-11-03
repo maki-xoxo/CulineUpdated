@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <!-- Background circle -->
+  <circle cx="60" cy="60" r="56" fill="#2F5233"/>
+
+  <!-- Leaf/Produce icon -->
+  <path d="M60 20
+           C75 20, 85 35, 85 50
+           C85 62, 72 72, 60 90
+           C48 72, 35 62, 35 50
+           C35 35, 45 20, 60 20 Z"
+        fill="none" stroke="#EAD9A8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Stem -->
+  <path d="M60 20 C60 12, 65 8, 68 6"
+        fill="none" stroke="#EAD9A8" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Leaf accent -->
+  <ellipse cx="70" cy="28" rx="10" ry="5" fill="#7FA06A" transform="rotate(-30 70 28)" opacity="0.9"/>
+
+  <!-- Inner highlight -->
+  <path d="M52 38 Q60 45 68 38"
+        fill="none" stroke="#EAD9A8" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Subtle tomato accent dot -->
+  <circle cx="42" cy="68" r="4" fill="#E27A54" opacity="0.8"/>
+  <circle cx="78" cy="68" r="3" fill="#E3A93B" opacity="0.7"/>
+</svg>

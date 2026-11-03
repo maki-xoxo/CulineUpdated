@@ -35,6 +35,8 @@ function showRateLimitMessage(errorEl, remainingMs) {
 
 // Initialize after DOM is ready
 function init() {
+  console.log("[Culine Login] Initializing...");
+
   const tabRegister = document.getElementById("tabRegister");
   const goLogin = document.getElementById("goLogin");
   const loginForm = document.getElementById("loginForm");
@@ -43,14 +45,24 @@ function init() {
   const footRegister = document.getElementById("footRegister");
 
   // Debug: check if elements exist
+  console.log("[Culine Login] Elements found:", {
+    tabRegister: !!tabRegister,
+    goLogin: !!goLogin,
+    loginForm: !!loginForm,
+    registerForm: !!registerForm,
+    loginDivider: !!loginDivider,
+    footRegister: !!footRegister
+  });
+
   if (!tabRegister || !goLogin || !loginForm || !registerForm || !loginDivider || !footRegister) {
-    console.error("Login elements not found:", { tabRegister, goLogin, loginForm, registerForm, loginDivider, footRegister });
+    console.error("[Culine Login] Login elements not found:", { tabRegister, goLogin, loginForm, registerForm, loginDivider, footRegister });
     return;
   }
 
   // ---------- Switching between sign-in and register ----------
 
   function showLogin() {
+    console.log("[Culine Login] Showing login form");
     loginForm.hidden = false;
     loginDivider.hidden = false;
     tabRegister.hidden = false;
@@ -59,6 +71,7 @@ function init() {
   }
 
   function showRegister() {
+    console.log("[Culine Login] Showing register form");
     loginForm.hidden = true;
     loginDivider.hidden = true;
     tabRegister.hidden = true;
@@ -66,8 +79,17 @@ function init() {
     footRegister.hidden = false;
   }
 
-  tabRegister.addEventListener("click", showRegister);
-  goLogin.addEventListener("click", (e) => { e.preventDefault(); showLogin(); });
+  tabRegister.addEventListener("click", (e) => {
+    console.log("[Culine Login] tabRegister clicked");
+    e.preventDefault();
+    showRegister();
+  });
+
+  goLogin.addEventListener("click", (e) => {
+    console.log("[Culine Login] goLogin clicked");
+    e.preventDefault();
+    showLogin();
+  });
 
   // ---------- Forgot Password Dialog ----------
   const forgotLink = document.getElementById("forgotLink");
@@ -77,18 +99,45 @@ function init() {
   const backToLogin = document.getElementById("backToLogin");
   const forgotError = document.getElementById("forgotError");
 
+  console.log("[Culine Login] Forgot password elements:", {
+    forgotLink: !!forgotLink,
+    forgotDialog: !!forgotDialog,
+    forgotForm: !!forgotForm,
+    forgotCloseBtn: !!forgotCloseBtn,
+    backToLogin: !!backToLogin,
+    forgotError: !!forgotError
+  });
+
   if (forgotLink && forgotDialog && forgotForm) {
     forgotLink.addEventListener("click", (e) => {
+      console.log("[Culine Login] Forgot password link clicked");
       e.preventDefault();
       forgotDialog.showModal();
       forgotForm.reset();
       forgotError.textContent = "";
     });
 
-    if (forgotCloseBtn) forgotCloseBtn.addEventListener("click", () => forgotDialog.close());
-    if (backToLogin) backToLogin.addEventListener("click", (e) => { e.preventDefault(); forgotDialog.close(); });
+    if (forgotCloseBtn) {
+      forgotCloseBtn.addEventListener("click", () => {
+        console.log("[Culine Login] Forgot dialog close button clicked");
+        forgotDialog.close();
+      });
+    }
 
-    forgotDialog.addEventListener("click", (e) => { if (e.target === forgotDialog) forgotDialog.close(); });
+    if (backToLogin) {
+      backToLogin.addEventListener("click", (e) => {
+        console.log("[Culine Login] Back to login from forgot dialog");
+        e.preventDefault();
+        forgotDialog.close();
+      });
+    }
+
+    forgotDialog.addEventListener("click", (e) => {
+      if (e.target === forgotDialog) {
+        console.log("[Culine Login] Forgot dialog backdrop clicked");
+        forgotDialog.close();
+      }
+    });
 
     forgotForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -109,11 +158,15 @@ function init() {
       submitBtn.disabled = true;
       forgotError.textContent = "Sending reset link…";
 
+      // Build redirect URL properly - use origin + reset-password.html
+      const redirectTo = window.location.origin + "/reset-password.html";
+
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: window.location.origin + window.location.pathname.replace("login.html", "reset-password.html")
+        redirectTo
       });
 
       if (error) {
+        console.error("[Culine Login] Reset password error:", error);
         forgotError.textContent = error.message;
         submitBtn.disabled = false;
         return;
@@ -127,6 +180,8 @@ function init() {
         forgotDialog.close();
       }, 2000);
     });
+  } else {
+    console.error("[Culine Login] Forgot password elements missing, dialog will not work");
   }
 
   // ---------- Registration ----------
@@ -143,6 +198,11 @@ function init() {
 
     if (password !== confirmPassword) {
       error.textContent = "Passwords don\'t match.";
+      return;
+    }
+
+    if (username.length < 3) {
+      error.textContent = "Username must be at least 3 characters.";
       return;
     }
 
@@ -198,6 +258,8 @@ function init() {
   registerForm.addEventListener("submit", handleRegister);
 
   // ---------- Sign-in ----------
+  // Supabase signInWithPassword only accepts email, not username.
+  // We'll validate the input is an email format and show a clear error.
 
   async function handleLogin(event) {
     event.preventDefault();
@@ -209,6 +271,13 @@ function init() {
 
     if (!supabaseConfigured) {
       error.textContent = "Supabase is not configured. Check supabase-client.js";
+      return;
+    }
+
+    // Basic email format validation
+    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(identifier);
+    if (!isEmail) {
+      error.textContent = "Please enter your email address (username login not yet supported).";
       return;
     }
 
@@ -249,6 +318,12 @@ function init() {
 
   loginForm.addEventListener("submit", handleLogin);
 
+  // Update placeholder text to reflect email-only login
+  const loginIdentifier = document.getElementById("loginIdentifier");
+  if (loginIdentifier) {
+    loginIdentifier.placeholder = "you@example.com";
+  }
+
   // Re-apply any active cooldown on page load
   [["register", "registerError", registerForm], ["login", "loginError", loginForm]].forEach(([scope, errorId, form]) => {
     const remaining = getRateLimitRemaining(scope);
@@ -259,11 +334,15 @@ function init() {
     btn.disabled = true;
     setTimeout(() => { btn.disabled = false; }, remaining);
   });
+
+  console.log("[Culine Login] Initialization complete");
 }
 
 // Run init when DOM is ready
+// Module scripts are deferred, but let's be safe
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", init);
 } else {
+  // DOM is already ready
   init();
 }

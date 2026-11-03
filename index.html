@@ -28,16 +28,16 @@
     <section class="sidebar-categories" aria-labelledby="categoryHeading">
       <h2 id="categoryHeading">Category</h2>
       <nav class="sidebar-category-list" aria-label="Shop by category">
-        <a class="sidebar-category-link" href="#marketHeading">Produce</a>
-        <a class="sidebar-category-link" href="#marketHeading">Dairy & eggs</a>
-        <a class="sidebar-category-link" href="#marketHeading">Bakery</a>
-        <a class="sidebar-category-link" href="#marketHeading">Meat & fish</a>
-        <a class="sidebar-category-link" href="#marketHeading">Pantry</a>
+        <a class="sidebar-category-link" href="#category-produce">Produce</a>
+        <a class="sidebar-category-link" href="#category-dairy-eggs">Dairy & eggs</a>
+        <a class="sidebar-category-link" href="#category-bakery">Bakery</a>
+        <a class="sidebar-category-link" href="#category-meat-fish">Meat & fish</a>
+        <a class="sidebar-category-link" href="#category-pantry">Pantry</a>
       </nav>
     </section>
     <div class="sidebar-foot">
       <p class="sidebar-note">Next delivery</p>
-      <p class="sidebar-note-strong">Thursday, 810am</p>
+      <p class="sidebar-note-strong">Thursday, 8:10am</p>
 
     </div>
   </aside>
@@ -52,29 +52,39 @@
       <div class="topbar-actions">
         <button class="scan-trigger" type="button" id="scanTrigger" hidden>Scan barcode</button>
       <div class="search">
-        <input type="text" placeholder="Search the market">
+        <input type="text" id="searchInput" name="search" placeholder="Search the market">
       </div>
         <button class="logout-btn" type="button" id="logoutButton">Log out</button>
       </div>
     </header>
 
-    <section class="stats">
+    <section class="stats" id="OverviewSection">
       <div class="stat-card stat-green" id="budgetCard">
         <p class="stat-label">Budget remaining</p>
-        <p class="stat-value" id="budgetRemaining">$0.00</p>
-        <p class="stat-sub" id="budgetSub">of 2014 this week</p>
+        <p class="stat-value" id="budgetRemaining"></p>
+        <p class="stat-sub" id="budgetSub">Set up your budget</p>
         <div class="stat-bar"><div class="stat-bar-fill" id="budgetBar" style="width: 0%"></div></div>
       </div>
       <button class="stat-card cart-stat" type="button" id="cartTrigger" aria-haspopup="dialog" aria-controls="cartDialog">
         <span class="stat-label">Items in cart</span>
         <span class="stat-value" id="cartItemCount">0</span>
-        <span class="stat-sub" id="cartSubtotal"> subtotal | View cart</span>
+        <span class="stat-sub" id="cartSubtotal"></span>
       </button>
-      <div class="stat-card">
+      <button class="stat-card" type="button" id="ordersTrigger" aria-haspopup="dialog" aria-controls="ordersDialog">
         <p class="stat-label">Orders this month</p>
-        <p class="stat-value">6</p>
-        <p class="stat-sub">2 arriving this week</p>
-      </div>
+        <p class="stat-value" id="ordersCount">0</p>
+        <p class="stat-sub" id="ordersSub">Loading...</p>
+      </button>
+
+  <dialog class="cart-dialog" id="ordersDialog" aria-labelledby="ordersDialogTitle">
+    <div class="cart-dialog-head">
+      <div><p class="eyebrow-plain">Your Orders</p><h2 id="ordersDialogTitle">Order History</h2></div>
+      <button class="cart-close-btn" type="button" id="ordersClose" aria-label="Close orders">x</button>
+    </div>
+    <div class="orders-dialog-content" id="ordersDialogContent">
+      <div class="orders-list" id="ordersList"></div>
+    </div>
+  </dialog>
       <div class="stat-card">
         <p class="stat-label">Favorite vendor</p>
         <p class="stat-value stat-value-small">Hollow Creek Farm</p>
@@ -89,81 +99,36 @@
       </div>
 
       <p class="inventory-sync-status" id="inventorySyncStatus" aria-live="polite"></p>
-      <div class="produce-grid">
 
-        <article class="produce-card" data-product-id="heirloom-tomatoes" data-price="4.20" data-unit="lb" data-stock="50" data-availability="available">
-          <div class="produce-swatch swatch-tomato"></div>
-          <div class="produce-body">
-            <h3>Heirloom tomatoes</h3>
-            <p class="produce-vendor">Hollow Creek Farm</p>
-            <div class="produce-row">
-              <span class="produce-price">$4.20 | &#8369;267.81 / lb</span>
-              <button class="add-btn">Add</button>
-            </div>
-          </div>
-        </article>
+      <!-- Produce Category -->
+      <section class="market-category" id="category-produce">
+        <h3 class="category-title">Produce</h3>
+        <div class="produce-grid" id="grid-produce"></div>
+      </section>
 
-        <article class="produce-card" data-product-id="baby-spinach" data-price="3.10" data-unit="bag" data-stock="30" data-availability="available">
-          <div class="produce-swatch swatch-greens"></div>
-          <div class="produce-body">
-            <h3>Baby spinach</h3>
-            <p class="produce-vendor">Riverside Growers</p>
-            <div class="produce-row">
-              <span class="produce-price">$3.10 | &#8369;197.67 / bag</span>
-              <button class="add-btn">Add</button>
-            </div>
-          </div>
-        </article>
+      <!-- Dairy & Eggs Category -->
+      <section class="market-category" id="category-dairy-eggs">
+        <h3 class="category-title">Dairy & Eggs</h3>
+        <div class="produce-grid" id="grid-dairy-eggs"></div>
+      </section>
 
-        <article class="produce-card" data-product-id="sourdough-loaf" data-price="6.50" data-unit="loaf" data-stock="20" data-availability="available">
-          <div class="produce-swatch swatch-bread"></div>
-          <div class="produce-body">
-            <h3>Sourdough loaf</h3>
-            <p class="produce-vendor">Millhouse Bakery</p>
-            <div class="produce-row">
-              <span class="produce-price">$6.50 | &#8369;414.47 / loaf</span>
-              <button class="add-btn">Add</button>
-            </div>
-          </div>
-        </article>
+      <!-- Bakery Category -->
+      <section class="market-category" id="category-bakery">
+        <h3 class="category-title">Bakery</h3>
+        <div class="produce-grid" id="grid-bakery"></div>
+      </section>
 
-        <article class="produce-card" data-product-id="free-range-eggs" data-price="5.90" data-unit="dozen" data-stock="25" data-availability="available">
-          <div class="produce-swatch swatch-eggs"></div>
-          <div class="produce-body">
-            <h3>Free-range eggs</h3>
-            <p class="produce-vendor">Blue Barn Poultry</p>
-            <div class="produce-row">
-              <span class="produce-price">$5.90 | &#8369;376.21 / dozen</span>
-              <button class="add-btn">Add</button>
-            </div>
-          </div>
-        </article>
+      <!-- Meat & Fish Category -->
+      <section class="market-category" id="category-meat-fish">
+        <h3 class="category-title">Meat & Fish</h3>
+        <div class="produce-grid" id="grid-meat-fish"></div>
+      </section>
 
-        <article class="produce-card" data-product-id="wildflower-honey" data-price="8.00" data-unit="jar" data-stock="15" data-availability="available">
-          <div class="produce-swatch swatch-honey"></div>
-          <div class="produce-body">
-            <h3>Wildflower honey</h3>
-            <p class="produce-vendor">Cedar Row Apiary</p>
-            <div class="produce-row">
-              <span class="produce-price">$8.00 | &#8369;510.12 / jar</span>
-              <button class="add-btn">Add</button>
-            </div>
-          </div>
-        </article>
-
-        <article class="produce-card" data-product-id="delicata-squash" data-price="2.75" data-unit="each" data-stock="40" data-availability="available">
-          <div class="produce-swatch swatch-squash"></div>
-          <div class="produce-body">
-            <h3>Delicata squash</h3>
-            <p class="produce-vendor">Hollow Creek Farm</p>
-            <div class="produce-row">
-              <span class="produce-price">$2.75 | &#8369;175.35 / each</span>
-              <button class="add-btn">Add</button>
-            </div>
-          </div>
-        </article>
-
-      </div>
+      <!-- Pantry Category -->
+      <section class="market-category" id="category-pantry">
+        <h3 class="category-title">Pantry</h3>
+        <div class="produce-grid" id="grid-pantry"></div>
+      </section>
     </section>
 
     <section class="section" id="recipesSection">
@@ -195,7 +160,7 @@
     <video id="barcodeVideo" class="barcode-video" muted playsinline></video>
     <div class="scan-manual-entry">
       <label for="barcodeEntry">Barcode number</label>
-      <div><input id="barcodeEntry" inputmode="numeric" autocomplete="off" placeholder="Enter barcode"><button type="button" id="barcodeLookup">Find item</button></div>
+      <div><input id="barcodeEntry" name="barcode" inputmode="numeric" autocomplete="off" placeholder="Enter barcode"><button type="button" id="barcodeLookup">Find item</button></div>
     </div>
     <section id="scanProductResult" class="scan-product-result" hidden aria-live="polite"></section>
     <button class="scan-stop-btn" type="button" data-close-scan>Close scanner</button>
@@ -207,8 +172,54 @@
       <button class="cart-close-btn" type="button" id="cartClose" aria-label="Close shopping cart">x</button>
     </div>
     <div class="cart-items" id="cartItems"></div>
-    <div class="cart-dialog-total"><span>Subtotal</span><strong id="cartDialogSubtotal">$0.00</strong></div>
-    <p class="cart-note">Checkout will be available later.</p>
+    <div class="cart-dialog-total"><span>Subtotal</span><strong id="cartDialogSubtotal"></strong></div>
+    <div class="cart-dialog-actions">
+      <button type="button" class="admin-secondary" id="cartContinueShopping">Continue Shopping</button>
+      <button type="button" class="admin-primary" id="cartCheckoutBtn">Checkout</button>
+    </div>
+  </dialog>
+
+  <!-- Checkout Dialog -->
+  <dialog class="cart-dialog" id="checkoutDialog" aria-labelledby="checkoutDialogTitle">
+    <div class="cart-dialog-head">
+      <div><p class="eyebrow-plain">Checkout</p><h2 id="checkoutDialogTitle">Confirm your order</h2></div>
+      <button class="cart-close-btn" type="button" id="checkoutClose" aria-label="Close checkout">x</button>
+    </div>
+    <div class="checkout-content">
+      <div class="checkout-summary">
+        <h3>Order Summary</h3>
+        <div id="checkoutItems"></div>
+        <div class="checkout-totals">
+          <div><span>Subtotal</span><strong id="checkoutSubtotal"></strong></div>
+          <div><span>Delivery fee</span><strong id="checkoutDeliveryFee"></strong></div>
+          <div class="checkout-total"><span>Total</span><strong id="checkoutTotal"></strong></div>
+        </div>
+      </div>
+      <div class="checkout-form">
+        <label class="field">
+          <span class="field-label">Delivery address</span>
+          <textarea id="checkoutAddress" rows="3" placeholder="Enter your delivery address"></textarea>
+        </label>
+        <p class="field-error" id="checkoutError"></p>
+        <div class="checkout-actions">
+          <button type="button" class="admin-secondary" id="checkoutCancel">Cancel</button>
+          <button type="button" class="admin-primary" id="checkoutConfirm">Place Order</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Order Confirmation Dialog -->
+  <dialog class="cart-dialog" id="orderConfirmDialog" aria-labelledby="orderConfirmTitle">
+    <div class="cart-dialog-head">
+      <div><p class="eyebrow-plain">Order Confirmed</p><h2 id="orderConfirmTitle">Thank you for your order!</h2></div>
+    </div>
+    <div class="order-confirm-content">
+      <div class="order-confirm-icon">✓</div>
+      <p id="orderConfirmMessage"></p>
+      <div class="order-confirm-details" id="orderConfirmDetails"></div>
+      <button type="button" class="admin-primary" id="orderConfirmClose">Continue Shopping</button>
+    </div>
   </dialog>
 
   <!-- Budget Setup Dialog -->
@@ -223,8 +234,8 @@
           <span class="currency-symbol">$</span>
           <span class="currency-name">US Dollar (USD)</span>
         </button>
-        <button type="button" class="currency-btn" data-currency="PHP" data-symbol="P">
-          <span class="currency-symbol">P</span>
+        <button type="button" class="currency-btn" data-currency="PHP" data-symbol="₱">
+          <span class="currency-symbol">₱</span>
           <span class="currency-name">Philippine Peso (PHP)</span>
         </button>
       </div>
@@ -233,10 +244,9 @@
       <h3>Set your weekly budget</h3>
       <div class="field">
         <span class="field-label">Weekly budget</span>
-        <span class="field-label">(For Peso only)This converts your budget to the selected currency "$ - P"</span>
         <div class="budget-input-wrapper">
           <span class="budget-symbol" id="budgetSymbol">$</span>
-          <input type="number" id="budgetAmount" placeholder="0.00" min="0" step="0.01" required>
+          <input type="number" id="budgetAmount" name="budget" placeholder="0.00" min="0" step="0.01" required>
         </div>
       </div>
       <p class="field-error" id="budgetError"></p>
@@ -252,11 +262,11 @@
 </div>
 
 <script type="module">
-  import { supabase, supabaseConfigured } from './script/supabase-client.js';
-  import { USD_TO_PHP_RATE, getCurrency, formatCurrency } from './script/cart.js';
+  import { supabase, supabaseConfigured, UNSPLASH_KEY } from './script/supabase-client.js';
+  import { USD_TO_PHP_RATE, getCurrency, formatCurrency, formatAmount, showToast, getCart, checkoutCart } from './script/cart.js';
   import { recipes, recipeIngredientMap, calculateRecipeCost, formatPrice, renderRecipes, showRecipeDetail } from "./script/recipes_temp.js";
 
-  const unsplashAccessKey = "I6E7saHiJiJ5grW9SsG3F81UqEAAaadwm-GT18OveN0";
+  const unsplashAccessKey = UNSPLASH_KEY || '';
   let unsplashPhotos = [];
 
   function applyProducePhotos() {
@@ -372,8 +382,9 @@
       row.className = "produce-row";
       const priceLabel = document.createElement("span");
       priceLabel.className = "produce-price";
-      const phpPrice = product.price * USD_TO_PHP_RATE;
-      priceLabel.textContent = "$" + product.price.toFixed(2) + " | P" + phpPrice.toFixed(2) + " / " + product.unit;
+      const currency = getCurrency();
+      const displayPrice = formatCurrency(product.price, currency);
+      priceLabel.textContent = displayPrice + " / " + product.unit;
       const addButton = document.createElement("button");
       addButton.className = "add-btn";
       addButton.type = "button";
@@ -412,17 +423,7 @@
   const BUDGET_KEY = "culine_weekly_budget";
   const SETUP_DONE_KEY = "culine_setup_done";
 
-  // USD_TO_PHP_RATE, getCurrency and formatCurrency are imported from cart.js
-
-  const currencySymbols = {
-    USD: "$",
-    PHP: "P"
-  };
-
-  const currencyNames = {
-    USD: "US Dollar (USD)",
-    PHP: "Philippine Peso (PHP)"
-  };
+  // USD_TO_PHP_RATE, getCurrency, formatCurrency, formatAmount, showToast, getCart, checkoutCart are imported from cart.js
 
   function getBudget() {
     return parseFloat(localStorage.getItem(BUDGET_KEY) || "0");
@@ -435,8 +436,7 @@
   function updateBudgetDisplay() {
     const budget = getBudget();
     const currency = getCurrency();
-    const symbol = currencySymbols[currency] || "$";
-    
+
     const budgetRemainingEl = document.getElementById("budgetRemaining");
     const budgetSubEl = document.getElementById("budgetSub");
     const budgetBarEl = document.getElementById("budgetBar");
@@ -449,26 +449,42 @@
       const cartSubtotal = getCartSubtotal();
       // Convert cart subtotal to selected currency for comparison
       const cartSubtotalInCurrency = currency === "PHP" ? cartSubtotal * USD_TO_PHP_RATE : cartSubtotal;
-      const remaining = Math.max(0, budget - cartSubtotalInCurrency);
+      const remaining = budget - cartSubtotalInCurrency;
+      const isExceeded = remaining < 0;
       const percentage = budget > 0 ? Math.min(100, (cartSubtotalInCurrency / budget) * 100) : 0;
 
-      budgetRemainingEl.textContent = formatCurrency(remaining, false);
-      budgetSubEl.textContent = "of " + formatCurrency(budget, false) + " this week";
-      budgetBarEl.style.width = percentage + "%";
-      
+      if (isExceeded) {
+        budgetRemainingEl.textContent = "Budget exceeded";
+        budgetRemainingEl.style.color = "var(--tomato)";
+        budgetSubEl.textContent = "Budget for this week has been exceeded";
+        budgetBarEl.style.width = "100%";
+        budgetBarEl.style.background = "var(--tomato)";
+        budgetCard.classList.add("budget-exceeded");
+      } else {
+        budgetRemainingEl.textContent = formatAmount(remaining, currency);
+        budgetRemainingEl.style.color = "";
+        budgetSubEl.textContent = "of " + formatAmount(budget, currency) + " this week";
+        budgetBarEl.style.width = percentage + "%";
+        budgetBarEl.style.background = "";
+        budgetCard.classList.remove("budget-exceeded");
+      }
+
       // Update cart subtotal display
       if (cartSubtotalEl) {
-        cartSubtotalEl.textContent = "$" + cartSubtotal.toFixed(2) + " subtotal | View cart";
+        cartSubtotalEl.textContent = formatCurrency(cartSubtotal, currency) + " subtotal | View cart";
       }
       if (cartDialogSubtotalEl) {
-        cartDialogSubtotalEl.textContent = "$" + cartSubtotal.toFixed(2);
+        cartDialogSubtotalEl.textContent = formatCurrency(cartSubtotal, currency);
       }
     } else {
       budgetRemainingEl.textContent = "";
+      budgetRemainingEl.style.color = "";
       budgetSubEl.textContent = "Set up your budget";
       budgetBarEl.style.width = "0%";
+      budgetBarEl.style.background = "";
+      budgetCard.classList.remove("budget-exceeded");
       if (cartSubtotalEl) {
-        cartSubtotalEl.textContent = "subtotal View cart";
+        cartSubtotalEl.textContent = "";
       }
       if (cartDialogSubtotalEl) {
         cartDialogSubtotalEl.textContent = "";
@@ -489,7 +505,7 @@
     const backBtn = document.getElementById("setupBack");
     const nextBtn = document.getElementById("setupNext");
     const budgetError = document.getElementById("budgetError");
-    const budgetAmount = document.getElementById("budgetAmount");
+    let budgetAmount = document.getElementById("budgetAmount");
     const budgetSymbol = document.getElementById("budgetSymbol");
 
     // Reset to step 1
@@ -500,27 +516,28 @@
     budgetError.textContent = "";
     budgetAmount.value = "";
 
-    // Currency button handlers
+    // Initialize currency selection from saved value
+    const savedCurrency = localStorage.getItem(CURRENCY_KEY) || 'USD';
     document.querySelectorAll(".currency-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".currency-btn").forEach(b => b.classList.remove("selected"));
+      if (btn.dataset.currency === savedCurrency) {
         btn.classList.add("selected");
-        localStorage.setItem(CURRENCY_KEY, btn.dataset.currency);
-        budgetSymbol.textContent = btn.dataset.symbol;
+      } else {
+        btn.classList.remove("selected");
+      }
+    });
+    budgetSymbol.textContent = savedCurrency === 'PHP' ? '₱' : '$';
+
+    // Currency button handlers - clone buttons to remove old listeners
+    document.querySelectorAll(".currency-btn").forEach(btn => {
+      const newBtn = btn.cloneNode(true);
+      btn.parentNode.replaceChild(newBtn, btn);
+      newBtn.addEventListener("click", () => {
+        document.querySelectorAll(".currency-btn").forEach(b => b.classList.remove("selected"));
+        newBtn.classList.add("selected");
+        localStorage.setItem(CURRENCY_KEY, newBtn.dataset.currency);
+        budgetSymbol.textContent = newBtn.dataset.symbol;
       });
     });
-    nextBtn.onclick = () => {
-      const selectedCurrency = document.querySelector(".currency-btn.selected");
-      if (!selectedCurrency) {
-        budgetError.textContent = "Please select a currency";
-        return;
-      }
-      step1.hidden = true;
-      step2.hidden = false;
-      backBtn.hidden = false;
-      nextBtn.textContent = "Save";
-      budgetError.textContent = "";
-    };
 
     backBtn.onclick = () => {
       step1.hidden = false;
@@ -531,19 +548,25 @@
     };
 
     // Final save handler
-    let saveHandler = async () => {
+    const saveHandler = () => {
       const amount = parseFloat(budgetAmount.value);
       if (isNaN(amount) || amount <= 0) {
         budgetError.textContent = "Please enter a valid budget amount";
+        budgetAmount.focus();
         return;
       }
 
-      localStorage.setItem(BUDGET_KEY, amount.toString());
-      localStorage.setItem(SETUP_DONE_KEY, "true");
-      budgetError.textContent = "";
-      
-      updateBudgetDisplay();
-      dialog.close();
+      try {
+        localStorage.setItem(BUDGET_KEY, amount.toString());
+        localStorage.setItem(SETUP_DONE_KEY, "true");
+        budgetError.textContent = "";
+
+        updateBudgetDisplay();
+        dialog.close();
+      } catch (err) {
+        console.error('Failed to save budget:', err);
+        budgetError.textContent = "Failed to save budget. Please try again.";
+      }
     };
 
     // Handle next button click (changes based on step)
@@ -565,6 +588,17 @@
         saveHandler();
       }
     };
+
+    // Also allow Enter key to save on step 2 - remove old listener first
+    const newBudgetAmount = budgetAmount.cloneNode(true);
+    budgetAmount.parentNode.replaceChild(newBudgetAmount, budgetAmount);
+    budgetAmount = newBudgetAmount; // Update reference for saveHandler closure
+    newBudgetAmount.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !step2.hidden) {
+        e.preventDefault();
+        saveHandler();
+      }
+    });
 
     dialog.showModal();
   }
@@ -640,8 +674,6 @@
     return true;
   }
 
-  checkAuth().then(authed => { if (authed) renderRecipes(); });
-
   document.getElementById("logoutButton").addEventListener("click", async () => {
     if (supabaseConfigured) {
       await supabase.auth.signOut();
@@ -660,22 +692,308 @@
     });
   }
 
-  // Listen for cart updates to refresh budget display
+  // Listen for cart updates to refresh budget display (cross-tab)
   window.addEventListener("storage", (e) => {
     if (e.key === "culineShoppingCart") {
       updateBudgetDisplay();
     }
   });
 
-  // Also listen for cart updates from same tab
-  const originalSetItem = localStorage.setItem;
-  localStorage.setItem = function(key, value) {
-    originalSetItem.apply(this, arguments);
-    if (key === "culineShoppingCart") {
-      updateBudgetDisplay();
+  // Listen for cart updates from same tab via custom event
+  window.addEventListener('cart:changed', updateBudgetDisplay);
+
+  // Smooth scroll helper - works with grid/sticky layouts
+  function smoothScrollTo(targetId) {
+    const target = document.querySelector(targetId);
+    if (!target) return;
+
+    // Get target position relative to viewport
+    const targetRect = target.getBoundingClientRect();
+    const targetPosition = window.scrollY + targetRect.top;
+
+    // Account for sticky sidebar offset if needed
+    window.scrollTo({
+      top: targetPosition,
+      behavior: 'smooth'
+    });
+  }
+
+  // Smooth scroll for sidebar category links
+  document.querySelectorAll('.sidebar-category-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        smoothScrollTo(href);
+      }
+    });
+  });
+
+  // Smooth scroll for main nav links too
+  document.querySelectorAll('.nav-link[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        smoothScrollTo(href);
+      }
+    });
+  });
+
+  // ---------- Orders & Checkout ----------
+  async function loadOrders() {
+    if (!supabaseConfigured) return;
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) return;
+
+    const { data: orders, error } = await supabase
+      .from('orders')
+      .select('*, order_items(*)')
+      .eq('user_id', session.user.id)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('Failed to load orders:', error);
+      return;
     }
-  };
+
+    updateOrdersDisplay(orders || []);
+  }
+
+  function updateOrdersDisplay(orders) {
+    const ordersCountEl = document.getElementById('ordersCount');
+    const ordersSubEl = document.getElementById('ordersSub');
+    const ordersListEl = document.getElementById('ordersList');
+
+    const thisMonth = new Date();
+    thisMonth.setDate(1);
+    thisMonth.setHours(0, 0, 0, 0);
+
+    const monthlyOrders = orders.filter(o => new Date(o.created_at) >= thisMonth);
+    const arrivingOrders = orders.filter(o =>
+      o.estimated_delivery_date &&
+      new Date(o.estimated_delivery_date) >= new Date() &&
+      o.status !== 'delivered' &&
+      o.status !== 'cancelled'
+    );
+
+    ordersCountEl.textContent = monthlyOrders.length;
+    ordersSubEl.textContent = arrivingOrders.length > 0
+      ? `${arrivingOrders.length} arriving this week`
+      : monthlyOrders.length > 0
+        ? 'No pending deliveries'
+        : 'No orders this month';
+
+    // Render ALL orders in dialog (not just this month)
+    if (ordersListEl) {
+      if (orders.length === 0) {
+        ordersListEl.innerHTML = '<p class="orders-empty">No orders yet</p>';
+      } else {
+        const sortedOrders = [...orders].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        ordersListEl.innerHTML = sortedOrders.map(order => renderOrderCard(order)).join('');
+        ordersListEl.querySelectorAll('.order-cancel-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const orderId = btn.dataset.orderId;
+            cancelOrder(orderId);
+          });
+        });
+      }
+    }
+  }
+
+  function renderOrderCard(order) {
+    const currency = order.currency || 'PHP';
+    const statusLabel = order.status.charAt(0).toUpperCase() + order.status.slice(1);
+    const orderDate = new Date(order.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    const deliveryDate = order.estimated_delivery_date
+      ? new Date(order.estimated_delivery_date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
+      : 'TBD';
+    const canCancel = order.status !== 'delivered' && order.status !== 'cancelled';
+    const itemsHtml = (order.order_items || []).map(item =>
+      `<div class="order-item-row">
+        <span class="order-item-name">${item.product_name} × ${item.quantity}</span>
+        <span class="order-item-price">${formatAmount(item.line_total, currency)}</span>
+      </div>`
+    ).join('');
+
+    // Show subtotal, delivery fee, and total breakdown
+    const subtotal = formatAmount(order.subtotal, currency);
+    const deliveryFee = formatAmount(order.delivery_fee, currency);
+    const total = formatAmount(order.total, currency);
+
+    return `
+      <div class="order-card" data-order-id="${order.id}">
+        <div class="order-card-header">
+          <div>
+            <span class="order-date">${orderDate}</span>
+            <span class="order-status status-${order.status}">${statusLabel}</span>
+          </div>
+          <strong class="order-total">${total}</strong>
+        </div>
+        <div class="order-items">${itemsHtml}</div>
+        <div class="order-breakdown">
+          <div class="breakdown-row"><span>Subtotal</span><span>${subtotal}</span></div>
+          <div class="breakdown-row"><span>Delivery Fee</span><span>${deliveryFee}</span></div>
+          <div class="breakdown-row breakdown-total"><span>Total</span><span>${total}</span></div>
+        </div>
+        <div class="order-footer">
+          <span class="order-delivery">Est. delivery: ${deliveryDate}</span>
+          ${canCancel ? `<button type="button" class="order-cancel-btn" data-order-id="${order.id}">Cancel Order</button>` : ''}
+        </div>
+      </div>
+    `;
+  }
+
+  async function cancelOrder(orderId) {
+    if (!confirm('Are you sure you want to cancel this order?')) return;
+
+    try {
+      if (!supabaseConfigured) throw new Error('Supabase not configured');
+
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) throw new Error('Not logged in');
+
+      const { error } = await supabase
+        .from('orders')
+        .update({ status: 'cancelled' })
+        .eq('id', orderId)
+        .eq('user_id', session.user.id);
+
+      if (error) throw error;
+
+      showToast('Order cancelled');
+      await loadOrders();
+    } catch (err) {
+      console.error('Failed to cancel order:', err);
+      showToast('Failed to cancel order: ' + err.message, 'error');
+    }
+  }
+
+  function formatCurrencyDisplay(amount, currency) {
+    return formatCurrency(amount, currency);
+  }
+
+  function openCheckoutDialog() {
+    const currency = getCurrency();
+    const subtotal = getCartSubtotal();
+    const deliveryFee = currency === 'PHP' ? 50 / USD_TO_PHP_RATE : 5;
+    const total = subtotal + deliveryFee;
+
+    const currentCart = getCart();
+    checkoutItemsEl.innerHTML = currentCart.map(item => `
+      <div class="checkout-item">
+        <span>${item.name} × ${item.quantity}</span>
+        <span>${formatCurrencyDisplay(item.price * item.quantity, currency)}</span>
+      </div>
+    `).join('');
+
+    checkoutSubtotalEl.textContent = formatCurrencyDisplay(subtotal, currency);
+    checkoutDeliveryFeeEl.textContent = formatCurrencyDisplay(deliveryFee, currency);
+    checkoutTotalEl.textContent = formatCurrencyDisplay(total, currency);
+
+    checkoutError.textContent = '';
+    checkoutAddress.value = '';
+    checkoutDialog.showModal();
+  }
+
+  function closeCheckoutDialog() {
+    checkoutDialog.close();
+  }
+
+  async function handleCheckout() {
+    const address = checkoutAddress.value.trim();
+    checkoutError.textContent = '';
+    checkoutConfirm.disabled = true;
+    checkoutConfirm.textContent = 'Placing order...';
+
+    try {
+      const result = await checkoutCart(address);
+
+      closeCheckoutDialog();
+      closeCartDialog();
+
+      const currency = result.order.currency || 'PHP';
+      const deliveryDate = new Date(result.estimatedDelivery).toLocaleDateString('en-US', {
+        weekday: 'long', month: 'long', day: 'numeric'
+      });
+
+      orderConfirmMessage.textContent = 'Your order has been placed successfully!';
+      orderConfirmDetails.innerHTML = `
+        <p><strong>Order Total:</strong> ${formatAmount(result.order.total, currency)}</p>
+        <p><strong>Estimated Delivery:</strong> ${deliveryDate} (3-5 business days)</p>
+        <p><strong>Items:</strong> ${result.order.order_items?.length || 0} item${(result.order.order_items?.length || 0) !== 1 ? 's' : ''}</p>
+        ${address ? `<p><strong>Delivery to:</strong> ${address}</p>` : ''}
+      `;
+      orderConfirmDialog.showModal();
+
+      await loadOrders();
+      updateBudgetDisplay();
+
+    } catch (err) {
+      checkoutError.textContent = err.message || 'Failed to place order. Please try again.';
+      checkoutConfirm.disabled = false;
+      checkoutConfirm.textContent = 'Place Order';
+    }
+  }
+
+  function closeOrderConfirmDialog() {
+    orderConfirmDialog.close();
+    orderConfirmClose.textContent = 'Continue Shopping';
+  }
+
+  function closeCartDialog() {
+    document.getElementById('cartDialog').close();
+  }
+
+  // Event listeners
+  const cartCheckoutBtn = document.getElementById('cartCheckoutBtn');
+  const cartContinueShopping = document.getElementById('cartContinueShopping');
+  const checkoutDialog = document.getElementById('checkoutDialog');
+  const checkoutClose = document.getElementById('checkoutClose');
+  const checkoutCancel = document.getElementById('checkoutCancel');
+  const checkoutConfirm = document.getElementById('checkoutConfirm');
+  const checkoutAddress = document.getElementById('checkoutAddress');
+  const checkoutError = document.getElementById('checkoutError');
+  const checkoutItemsEl = document.getElementById('checkoutItems');
+  const checkoutSubtotalEl = document.getElementById('checkoutSubtotal');
+  const checkoutDeliveryFeeEl = document.getElementById('checkoutDeliveryFee');
+  const checkoutTotalEl = document.getElementById('checkoutTotal');
+
+  const orderConfirmDialog = document.getElementById('orderConfirmDialog');
+  const orderConfirmMessage = document.getElementById('orderConfirmMessage');
+  const orderConfirmDetails = document.getElementById('orderConfirmDetails');
+  const orderConfirmClose = document.getElementById('orderConfirmClose');
+
+  const ordersTrigger = document.getElementById('ordersTrigger');
+  const ordersDialog = document.getElementById('ordersDialog');
+  const ordersClose = document.getElementById('ordersClose');
+
+  cartCheckoutBtn?.addEventListener('click', openCheckoutDialog);
+  cartContinueShopping?.addEventListener('click', closeCartDialog);
+  checkoutClose?.addEventListener('click', closeCheckoutDialog);
+  checkoutCancel?.addEventListener('click', closeCheckoutDialog);
+  checkoutConfirm?.addEventListener('click', handleCheckout);
+  orderConfirmClose?.addEventListener('click', closeOrderConfirmDialog);
+  ordersTrigger?.addEventListener('click', async () => {
+    await loadOrders();
+    ordersDialog.showModal();
+  });
+  ordersClose?.addEventListener('click', () => ordersDialog.close());
+
+  checkoutDialog?.addEventListener('click', (e) => { if (e.target === checkoutDialog) closeCheckoutDialog(); });
+  orderConfirmDialog?.addEventListener('click', (e) => { if (e.target === orderConfirmDialog) closeOrderConfirmDialog(); });
+  ordersDialog?.addEventListener('click', (e) => { if (e.target === ordersDialog) ordersDialog.close(); });
+
+  // Load orders on auth
+  checkAuth().then(async authed => {
+    if (authed) {
+      renderRecipes();
+      await loadOrders();
+    }
+  });
 </script>
+<script src="script/config.js"></script>
 <script type="module" src="script/cart.js"></script>
 <script type="module" src="script/customer-live-inventory.js"></script>
 <script type="module" src="script/barcode-scanner.js"></script>
